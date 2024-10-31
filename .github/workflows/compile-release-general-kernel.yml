@@ -45,14 +45,6 @@ on:
         options:
           - all
           - dtbs
-      kernel_patch:
-        description: "Select compile with patch"
-        required: false
-        default: "true"
-        type: choice
-        options:
-          - false
-          - true
       kernel_toolchain:
         description: "Select the compilation toolchain"
         required: false
@@ -167,7 +159,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: matamatmatew/amlogic-s9xxx-armbian@main
         if: ${{ steps.mapped.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
@@ -175,7 +167,6 @@ jobs:
           kernel_version: ${{ inputs.kernel_version }}
           kernel_auto: ${{ inputs.kernel_auto }}
           kernel_package: ${{ inputs.kernel_package }}
-          kernel_patch: ${{ inputs.kernel_patch }}
           kernel_toolchain: ${{ inputs.kernel_toolchain }}
           kernel_sign: ${{ inputs.kernel_sign }}
           kernel_config: ${{ inputs.kernel_config }}
